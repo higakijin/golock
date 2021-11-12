@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: ["index"]
+  before_action :authenticate_user!, only: [:index, :create]
+
   def index
     posts = Post.all
     posts_array = posts.map do |p|
@@ -17,5 +18,16 @@ class PostsController < ApplicationController
     render json: posts_array, status: 200
   end
 
+  def create
+    post = Post.new(post_params)
+    post.user_id = current_user.id
+    post.save
+    render json: post
+  end
 
+  private
+
+    def post_params
+      params.require(:posts).permit(:title, :body)
+    end
 end

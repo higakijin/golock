@@ -6,9 +6,10 @@ Rails.application.routes.draw do
       registrations: 'auth/registrations'
     }
 
-    resources :posts, only: ['index']
+    resources :posts, only: [:index]
   end
 
+  resources :posts, only: [:create]
   # Routerのmodeがhashの場合は不要です
   # get '/article/:id', to: 'pages#index'
   get '*path', to: 'pages#index'
