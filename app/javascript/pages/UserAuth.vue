@@ -9,6 +9,7 @@
       <SignupForm />
       <p>登録済なら<span @click="showLogin = true">こちら</span>をクリック</p>
     </div>
+
   </div>
 </template>
 
