@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './components/home.vue'
+import Home from '../javascript/pages/Home.vue'
+import UserAuth from '../javascript/pages/UserAuth.vue'
 import PostNew from '../javascript/pages/PostNew.vue'
 import Welcome from '../javascript/pages/Welcome.vue'
 Vue.use(Router)
@@ -35,6 +36,7 @@ export default new Router({
   // ルーターの設定
   routes: [
     { path: '/', name: 'Home', component: Home },
+    { path: '/users/auth', name: 'UserAuth', component: UserAuth },
     { path: '/posts/new', name: 'PostNew', component: PostNew },
     // {
     //   path: '/article/:id',
