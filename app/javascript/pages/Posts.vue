@@ -1,14 +1,15 @@
 <template>
   <div>
     <Navbar />
-    <p>Postsページ</p>
+    <PostLists />
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import PostLists from '../components/PostLists.vue'
 
 export default {
-  components: { Navbar }
+  components: { Navbar, PostLists }
 }
 </script>
