@@ -7,26 +7,26 @@ import PostNew from '../javascript/pages/PostNew.vue'
 import Welcome from '../javascript/pages/Welcome.vue'
 import Posts from '../javascript/pages/Posts.vue'
 
-import useValidate from '../javascript/auth/validate'
+// import useValidate from '../javascript/auth/validate'
 
 Vue.use(Router)
-const { validate } = useValidate()
+// const { validate } = useValidate()
 
-const requireAuth = async (to, from, next) => {
-  const uid = window.localStorage.getItem('uid')
-  const client = window.localStorage.getItem('client')
-  const accessToken = window.localStorage.getItem('access-token')
+// const requireAuth = async (to, from, next) => {
+//   const uid = window.localStorage.getItem('uid')
+//   const client = window.localStorage.getItem('client')
+//   const accessToken = window.localStorage.getItem('access-token')
 
-  if (!uid || !client || !accessToken) {
-    console.log('ログインしていません')
-    next({ name: 'Home' })
-    return
-  }
+//   if (!uid || !client || !accessToken) {
+//     console.log('ログインしていません')
+//     next({ name: 'Home' })
+//     return
+//   }
 
-  await validate()
+//   await validate()
 
-  next()
-}
+//   next()
+// }
 
 export default new Router({
   
@@ -59,7 +59,10 @@ export default new Router({
   routes: [
     { path: '/', name: 'Home', component: Home },
     { path: '/users/auth', name: 'UserAuth', component: UserAuth },
-    { path: '/posts', name: 'Posts', component: Posts, beforeEnter: requireAuth },
+    {
+      path: '/posts', name: 'Posts', component: Posts
+      // , beforeEnter: requireAuth
+    },
     { path: '/posts/new', name: 'PostNew', component: PostNew },
     // {
     //   path: '/article/:id',
