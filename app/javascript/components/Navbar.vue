@@ -21,15 +21,15 @@
           Blog
         </a>
       </div>
-      <div>
-        <router-link to="/users/auth" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0">
-          <div v-if="isCurrentUser">
-            ログアウト
-          </div>
-          <div v-else>
+      <div class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-600 hover:bg-white mt-4 lg:mt-0">
+        <div v-if="isCurrentUser" @click="logout">
+          ログアウト
+        </div>
+        <div v-else>
+          <router-link to="/users/auth">
             ログイン
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
   </nav>
@@ -37,18 +37,47 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   data () {
     return {
       isEnable: false,
-      isCurrentUser: false
+      isCurrentUser: false,
+      error: null
     }
   },
   methods: {
     openBar () {
       this.isEnable = !this.isEnable
     },
+    async logout () {
+      this.error = null
+      try {
+        const res = await axios.delete('http://localhost:3000/auth/sign_out', {
+          headers: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client')
+          }
+        })
+        if (!res) {
+          new Error('ログアウトできませんでした。')
+        }
+        if (!this.error) {
+          window.localStorage.removeItem('access-token')
+          window.localStorage.removeItem('client')
+          window.localStorage.removeItem('uid')
+          window.localStorage.removeItem('name')
+          this.$router.push({ name: 'UserAuth' })
+        }
+        this.error = null
+
+        return res
+      } catch (error)  {
+        this.error = 'ログアウトできませんでした。'
+      }
+    }
   },
   mounted () {
     if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
