@@ -23,7 +23,7 @@
             <div class="relative mb-4 text-red-500">
               {{ error }}
             </div>
-            <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録</button>
+            <button class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">登録</button>
           </form>
         </div>
       </section>
@@ -60,7 +60,7 @@
             <div class="relative mb-4 text-red-500">
               {{ error }}
             </div>
-            <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録</button>
+            <button class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">登録</button>
           </form>
         </div>
       </section>
