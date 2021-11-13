@@ -6,7 +6,10 @@ Rails.application.routes.draw do
       registrations: 'auth/registrations'
     }
 
-    resources :posts, only: [:index]
+    scope :api do
+      resources :posts, only: [:index]
+    end
+
   end
 
   resources :posts, only: [:create]
