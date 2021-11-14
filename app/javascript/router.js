@@ -10,6 +10,7 @@ import Posts from '../javascript/pages/Posts.vue'
 // import useValidate from '../javascript/auth/validate'
 
 Vue.use(Router)
+Vue.use(require('vue-moment'));
 // const { validate } = useValidate()
 
 // const requireAuth = async (to, from, next) => {

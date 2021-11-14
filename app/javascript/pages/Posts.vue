@@ -1,7 +1,16 @@
 <template>
   <div>
     <Navbar />
-    <PostLists />
+    <div class="grid grid-cols-7 gap-4">
+      <div class="col-span-1">
+
+      </div>
+      <div class="col-span-5">
+        <PostLists />
+      </div>
+      <div class="col-span-1"></div>
+    </div>
+    
   </div>
 </template>
 
