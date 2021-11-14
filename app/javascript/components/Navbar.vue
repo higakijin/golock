@@ -17,9 +17,15 @@
         <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
           Examples
         </a>
-        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
           Blog
         </a>
+        <router-link to="/posts/new"
+          class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+          :class="this.$route.path==='/posts/new' ? 'text-white' : '' "
+        >
+          投稿する
+        </router-link>
       </div>
 
       <div v-if="isCurrentUser">
@@ -76,14 +82,17 @@ export default {
       } catch (error)  {
         this.error = 'ログアウトできませんでした。'
       }
-    }
+    },
   },
   mounted () {
-    if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
-      this.isCurrentUser = true
-    } else {
-      this.isCurrentUser = false
+    const loginJudge = () => {
+      if (window.localStorage.getItem('access-token') && window.localStorage.getItem('client') && window.localStorage.getItem('uid') ) {
+        this.isCurrentUser = true
+      } else {
+        this.isCurrentUser = false
+      }
     }
+    loginJudge ()
   }
 
 }
