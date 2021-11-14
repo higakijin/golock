@@ -10,29 +10,29 @@ import Posts from '../javascript/pages/Posts.vue'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-// import useValidate from '../javascript/auth/validate'
+import useValidate from '../javascript/auth/validate'
 
 Vue.use(Router)
 Vue.use(require('vue-moment'))
 
 Vue.use(mavonEditor)
-// const { validate } = useValidate()
 
-// const requireAuth = async (to, from, next) => {
-//   const uid = window.localStorage.getItem('uid')
-//   const client = window.localStorage.getItem('client')
-//   const accessToken = window.localStorage.getItem('access-token')
+const { validate } = useValidate()
+const requireAuth = async (to, from, next) => {
+  const uid = window.localStorage.getItem('uid')
+  const client = window.localStorage.getItem('client')
+  const accessToken = window.localStorage.getItem('access-token')
 
-//   if (!uid || !client || !accessToken) {
-//     console.log('ログインしていません')
-//     next({ name: 'Home' })
-//     return
-//   }
+  if (!uid || !client || !accessToken) {
+    // console.log('ログインしていません')
+    next({ name: 'UserAuth' })
+    return
+  }
 
-//   await validate()
+  await validate()
 
-//   next()
-// }
+  next()
+}
 
 export default new Router({
   
@@ -69,7 +69,7 @@ export default new Router({
       path: '/posts', name: 'Posts', component: Posts
       // , beforeEnter: requireAuth
     },
-    { path: '/posts/new', name: 'PostNew', component: PostNew },
+    { path: '/posts/new', name: 'PostNew', component: PostNew, beforeEnter: requireAuth },
     // {
     //   path: '/article/:id',
     //   name: 'Article',
