@@ -7,10 +7,15 @@ import PostNew from '../javascript/pages/PostNew.vue'
 import Welcome from '../javascript/pages/Welcome.vue'
 import Posts from '../javascript/pages/Posts.vue'
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 // import useValidate from '../javascript/auth/validate'
 
 Vue.use(Router)
-Vue.use(require('vue-moment'));
+Vue.use(require('vue-moment'))
+
+Vue.use(mavonEditor)
 // const { validate } = useValidate()
 
 // const requireAuth = async (to, from, next) => {

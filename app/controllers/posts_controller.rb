@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create] # index消した
+  # before_action :authenticate_user!, only: [:create] # index消した
 
   def index
     posts = Post.all
@@ -19,15 +19,15 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post.user_id = current_user.id
+    current_user = User.find_by(email: params['headers']['uid'])
+    post = Post.new(title: params[:title], body: params[:body], user_id: current_user.id)
     post.save
     render json: post
   end
 
-  private
+  # private
 
-    def post_params
-      params.require(:posts).permit(:title, :body)
-    end
+  #   def post_params
+  #     params.require(:posts).permit(:title, :body)
+  #   end
 end
