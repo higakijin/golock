@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   # before_action :authenticate_user!, only: [:create] # index消した
 
   def index
-    posts = Post.all
+    posts = Post.all.includes(:user)
     posts_array = posts.map do |p|
       {
         id: p.id,
