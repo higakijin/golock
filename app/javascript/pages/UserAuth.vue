@@ -70,12 +70,10 @@
 </template>
 
 <script>
-// import LoginForm from '../components/UserAuth/LoginForm.vue'
-// import SignupForm from '../components/UserAuth/SignupForm.vue'
+
 import axios from 'axios'
 
 export default {
-  // components: {LoginForm, SignupForm},
   data () {
     return {
       showLogin: true,

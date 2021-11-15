@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import '../javascript/css/application.css'
-import Home from '../javascript/pages/Home.vue'
+
 import UserAuth from '../javascript/pages/UserAuth.vue'
-import PostNew from '../javascript/pages/PostNew.vue'
-import Welcome from '../javascript/pages/Welcome.vue'
 import Posts from '../javascript/pages/Posts.vue'
+import PostNew from '../javascript/pages/PostNew.vue'
+import PostShow from '../javascript/pages/PostShow.vue'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -63,13 +63,12 @@ export default new Router({
   
   // ルーターの設定
   routes: [
-    { path: '/', name: 'Home', component: Home },
+    // { path: '/', name: 'Home', component: Home },
     { path: '/users/auth', name: 'UserAuth', component: UserAuth },
-    {
-      path: '/posts', name: 'Posts', component: Posts
-      // , beforeEnter: requireAuth
-    },
+    { path: '/', name: 'Posts', component: Posts },
     { path: '/posts/new', name: 'PostNew', component: PostNew, beforeEnter: requireAuth },
+    { path: '/posts/:id', name: 'PostShow', component: PostShow }
+    
     // {
     //   path: '/article/:id',
     //   name: 'Article',
@@ -78,11 +77,7 @@ export default new Router({
     //   // ※Homeのようにimportしたコンポーネントを設定するのでも可
     //   component: () => import('./components/article.vue')
     // },
-    {
-      path: '/welcome',
-      name: 'Welcome',
-      component: Welcome
-    }
+
   ]
   
 })
