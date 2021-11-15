@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     }
 
     scope :api do
-      resources :posts, only: [:index]
+      resources :posts, only: [:index, :show]
     end
 
   end

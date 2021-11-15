@@ -29,7 +29,23 @@ class PostsController < ApplicationController
     post.save
     render json: post
   end
+  
+  def show 
+    p = Post.find(params[:id])
+    u = User.find(p.user_id)
+    post_array = {
+      id: p.id,
+      title: p.title,
+      body: p.body,
+      created_at: p.created_at,
+      updated_at: p.updated_at,
 
+      user_id: u.id,
+      name: u.name,
+      email: u.email,
+    }
+    render json: post_array, status: 200
+  end
   # private
 
   #   def post_params
