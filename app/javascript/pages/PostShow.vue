@@ -1,6 +1,22 @@
 <template>
   <div>
     <Navbar />
+    <div>
+      <p>{{ post.name }}</p>
+      <p>投稿日{{ post.created_at | moment("YYYY年MM月DD日") }}　　更新日{{ post.updated_at | moment("YYYY年MM月DD日") }}</p>
+    </div>
+    <div>
+      <h1 class="text-4xl font-bold">{{ post.title }}</h1>
+    </div>
+    <mavon-editor
+      v-model="body"
+      language="ja"
+      :subfield="false"
+      defaultOpen="preview"
+      :toolbars="markdownOption"
+      :boxShadow='false'
+
+    />
   </div>
 </template>
 
@@ -9,12 +25,17 @@ import Navbar from '../components/Navbar.vue'
 import axios from 'axios'
 
 export default {
-  components: { Navbar, VueMarkdownIt },
+
+  components: { Navbar },
   
   data ()  {
     return {
+      date: this.$moment().format(),
       post: '',
-      source: ''
+      body: '',
+      markdownOption: {
+        preview: false
+      }
     }
   },
   methods: {
@@ -25,7 +46,7 @@ export default {
           new Error('メッセージを取得できませんでした。')
         }
         this.post = res.data
-        this.source = this.post.body
+        this.body = this.post.body
       } catch (error) {
         // エラーメッセージ
       }
@@ -34,7 +55,10 @@ export default {
   
   mounted() {
     this.getPostShow()
-    
   }
 }
 </script>
+
+<style>
+
+</style>
