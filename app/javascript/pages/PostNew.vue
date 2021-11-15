@@ -5,12 +5,15 @@
       <div class="col-span-1"></div>
       <div class="col-span-9">
         <div id="app">
-          <form @submit.prevent="createPost">
+          <form @submit.prevent>
             <div class="flex items-center mb-1 justify-center">
-              <div class="shadow-md mt-10 mb-6 px-3 pt-3 w-11/12">
+              <div class="shadow-md mt-10 mb-6 px-3 pt-3 w-full">
                 <input type="text" v-model="title" required placeholder="タイトルを入力してください！" class="w-full my-3 appearance-none bg-transparent text-gray-700 mr-3 pb-2 leading-tight focus:outline-none border-green-500 border-b-2">
               </div>
-              <button class="m-3 mt-6 w-1/12 px-2 py-1 bg-green-500 text-white font-semibold rounded hover:bg-green-600">投稿</button>
+              <div class="flex mt-4">
+                <button type="submit" class="ml-4 m-2 whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100" @click="createPostForPrivate">下書き保存</button>
+                <button type="submit" class="m-2 whitespace-nowrap px-2 py-1 bg-green-500 text-white font-semibold rounded hover:bg-green-600" @click="createPostForPublic">投稿</button>
+              </div>
             </div>
             <div class="mb-12">
               <mavon-editor :language="'ja'" v-model="body" required class="h-screen"></mavon-editor>
@@ -34,12 +37,14 @@ export default {
     return {
       title: '',
       body: '',
+      
       error: null
     }
   },
   methods: {
-    async createPost() {
+    async createPostForPrivate() {
       this.error = null
+      
       try {
         const res = await axios.post('http://localhost:3000/posts', {
           headers: {
@@ -49,7 +54,38 @@ export default {
           },
 
           title: this.title,
-          body: this.body
+          body: this.body,
+          
+          published: false
+        })
+        if (!res) {
+          new Error('投稿できませんでした')
+        }
+        if (!this.error) {
+          this.$router.push({ name: 'Posts' })
+        }
+        this.error = null
+        return res
+      } catch (error) {
+        this.error = '投稿できませんでした'
+      }
+    },
+
+    async createPostForPublic() {
+      this.error = null
+      
+      try {
+        const res = await axios.post('http://localhost:3000/posts', {
+          headers: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client')
+          },
+
+          title: this.title,
+          body: this.body,
+          
+          published: true
         })
         if (!res) {
           new Error('投稿できませんでした')

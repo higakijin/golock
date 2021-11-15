@@ -21,6 +21,11 @@ class PostsController < ApplicationController
   def create
     current_user = User.find_by(email: params['headers']['uid'])
     post = Post.new(title: params[:title], body: params[:body], user_id: current_user.id)
+    if params["published"] == true
+      post.published = true
+    else
+      post.published = false
+    end
     post.save
     render json: post
   end
