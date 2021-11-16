@@ -3,7 +3,8 @@
     <Navbar />
     <div>
       <p>{{ post.name }}</p>
-      <p>投稿日{{ post.created_at | moment("YYYY年MM月DD日") }}　　更新日{{ post.updated_at | moment("YYYY年MM月DD日") }}</p>
+      <p>投稿日　{{ createdAt }} </p>
+      <p>更新日　{{ updatedAt }}</p>
     </div>
     <div>
       <h1 class="text-4xl font-bold">{{ post.title }}</h1>
@@ -24,6 +25,9 @@
 import Navbar from '../components/Navbar.vue'
 import axios from 'axios'
 
+import { compareAsc, format } from 'date-fns'
+
+
 export default {
 
   components: { Navbar },
@@ -35,7 +39,9 @@ export default {
       body: '',
       markdownOption: {
         preview: false
-      }
+      },
+      createdAt: '',
+      updatedAt: '',
     }
   },
   methods: {
@@ -47,6 +53,8 @@ export default {
         }
         this.post = res.data
         this.body = this.post.body
+        this.createdAt = format(new Date(this.post.created_at), 'yyyy年MM月dd日')
+        this.updatedAt = format(new Date(this.post.updated_at), 'yyyy年MM月dd日')
       } catch (error) {
         // エラーメッセージ
       }
