@@ -9,21 +9,19 @@
     <div>
       <h1 class="text-4xl font-bold">{{ post.title }}</h1>
     </div>
-    <mavon-editor
-      v-model="body"
-      language="ja"
-      :subfield="false"
-      defaultOpen="preview"
-      :toolbars="markdownOption"
-      :boxShadow='false'
 
-    />
+    <div id="marked">
+      <div v-html="compiledMarkdown"></div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
 import axios from 'axios'
+
+import { marked } from 'marked'
 
 import { compareAsc, format } from 'date-fns'
 
@@ -36,12 +34,13 @@ export default {
     return {
       date: this.$moment().format(),
       post: '',
-      body: '',
       markdownOption: {
         preview: false
       },
       createdAt: '',
       updatedAt: '',
+
+      markdownText: ''
     }
   },
   methods: {
@@ -52,9 +51,10 @@ export default {
           new Error('メッセージを取得できませんでした。')
         }
         this.post = res.data
-        this.body = this.post.body
+        // this.body = this.post.body
         this.createdAt = format(new Date(this.post.created_at), 'yyyy年MM月dd日')
         this.updatedAt = format(new Date(this.post.updated_at), 'yyyy年MM月dd日')
+        this.markdownText = res.data.body
       } catch (error) {
         // エラーメッセージ
       }
@@ -63,7 +63,13 @@ export default {
   
   mounted() {
     this.getPostShow()
-  }
+  },
+
+  computed: {
+    compiledMarkdown () {
+      return marked(this.markdownText)
+    }
+  },
 }
 </script>
 
