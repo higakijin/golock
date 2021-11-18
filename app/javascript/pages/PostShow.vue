@@ -10,8 +10,8 @@
       <h1 class="text-4xl font-bold">{{ post.title }}</h1>
     </div>
 
-    <div id="marked">
-      <div v-html="compiledMarkdown"></div>
+    <div>
+      <markdown-it-vue class="md-body" :content="content" />
     </div>
 
   </div>
@@ -21,14 +21,15 @@
 import Navbar from '../components/Navbar.vue'
 import axios from 'axios'
 
-import { marked } from 'marked'
+import MarkdownItVue from 'markdown-it-vue'
+import 'markdown-it-vue/dist/markdown-it-vue.css'
 
 import { compareAsc, format } from 'date-fns'
 
 
 export default {
 
-  components: { Navbar },
+  components: { Navbar, MarkdownItVue },
   
   data ()  {
     return {
@@ -40,7 +41,7 @@ export default {
       createdAt: '',
       updatedAt: '',
 
-      markdownText: ''
+      content: ''
     }
   },
   methods: {
@@ -51,10 +52,9 @@ export default {
           new Error('メッセージを取得できませんでした。')
         }
         this.post = res.data
-        // this.body = this.post.body
         this.createdAt = format(new Date(this.post.created_at), 'yyyy年MM月dd日')
         this.updatedAt = format(new Date(this.post.updated_at), 'yyyy年MM月dd日')
-        this.markdownText = res.data.body
+        this.content = res.data.body
       } catch (error) {
         // エラーメッセージ
       }
@@ -65,11 +65,6 @@ export default {
     this.getPostShow()
   },
 
-  computed: {
-    compiledMarkdown () {
-      return marked(this.markdownText)
-    }
-  },
 }
 </script>
 
