@@ -1,19 +1,18 @@
 <template>
   <div>
     <Navbar />
-    <div>
-      <p>{{ post.name }}</p>
-      <p>投稿日　{{ createdAt }} </p>
-      <p>更新日　{{ updatedAt }}</p>
+    
+    <div class="grid grid-cols-7 gap-4 mt-12 mb-28">
+      <div class="col-span-1"></div>
+      <div class="col-span-4">
+        <div>
+          <p>投稿日{{ createdAt }}　|　更新日{{ updatedAt }}　　Posted by {{ post.name }}</p>
+        </div>
+        <h1 class="text-4xl font-bold my-5">{{ post.title }}</h1>
+        <markdown-it-vue class="md-body" :content="content" />
+      </div>
+      <div class="col-span-2"></div>
     </div>
-    <div>
-      <h1 class="text-4xl font-bold">{{ post.title }}</h1>
-    </div>
-
-    <div>
-      <markdown-it-vue class="md-body" :content="content" />
-    </div>
-
   </div>
 </template>
 
@@ -69,5 +68,13 @@ export default {
 </script>
 
 <style>
+/* マークダウンの記述はこちらの記入 */
+.markdown-body h1 {
+  font-size: 25px;
+  margin-top: 60px;
+}
 
+.markdown-body pre {
+  font-size: 12px
+}
 </style>
