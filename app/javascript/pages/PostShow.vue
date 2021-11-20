@@ -4,14 +4,17 @@
     
     <div class="grid grid-cols-7 gap-4 mt-12 mb-28">
       <div class="col-span-1"></div>
-      <div class="col-span-4">
+      <div class="col-span-5">
         <div>
           <p>投稿日{{ createdAt }}　|　更新日{{ updatedAt }}　　Posted by {{ post.name }}</p>
         </div>
-        <h1 class="text-4xl font-bold my-5">{{ post.title }}</h1>
+        <div class="flex">
+          <h1 class="text-4xl font-bold my-5">{{ post.title }}</h1>
+          <router-link :to='`/posts/${post.id}/edit`' class="m-6 ml-auto whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100">編集</router-link>
+        </div>
         <markdown-it-vue class="md-body" :content="content" />
       </div>
-      <div class="col-span-2"></div>
+      <div class="col-span-1"></div>
     </div>
   </div>
 </template>

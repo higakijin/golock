@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :posts, only: [:create]
+  resources :posts, only: [:create, :update]
   # Routerのmodeがhashの場合は不要です
   # get '/article/:id', to: 'pages#index'
   get '*path', to: 'pages#index'

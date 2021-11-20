@@ -46,9 +46,18 @@ class PostsController < ApplicationController
     }
     render json: post_array, status: 200
   end
-  # private
 
-  #   def post_params
-  #     params.require(:posts).permit(:title, :body)
-  #   end
+  def update
+    post = Post.find(params[:id])
+    title = params[:title]
+    body = params[:body]
+    if params[:published] == true
+      published = true
+    else 
+      published = false
+    end
+    post.update(title: title, body: body, published: published)
+    render json: post
+  end
+
 end
