@@ -97,14 +97,13 @@ export default {
     async updatePostForPrivate() {
       try {
         const res = await axios.patch(`http://localhost:3000/posts/${this.$route.params['id']}`, {
-          headers: {
-            uid: window.localStorage.getItem('uid'),
-            "access-token": window.localStorage.getItem('access-token'),
-            client: window.localStorage.getItem('client')
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            title: this.post.title,
+            body: this.post.body,
           },
-          title: this.post.title,
-          body: this.post.body,
-
           published: false
         })
         if (!res) {
@@ -123,14 +122,13 @@ export default {
     async updatePostForPublic() {
       try {
         const res = await axios.patch(`http://localhost:3000/posts/${this.$route.params['id']}`, {
-          headers: {
-            uid: window.localStorage.getItem('uid'),
-            "access-token": window.localStorage.getItem('access-token'),
-            client: window.localStorage.getItem('client')
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            title: this.post.title,
+            body: this.post.body,
           },
-          title: this.post.title,
-          body: this.post.body,
-
           published: true
         })
         if (!res) {

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  # before_action :authenticate_user!, only: [:create] # index消した
+  before_action :authenticate_user!, only: [:create, :update] # index消した
 
   def index
     posts = Post.all.includes(:user)
@@ -19,8 +19,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    current_user = User.find_by(email: params['headers']['uid'])
-    post = Post.new(title: params[:title], body: params[:body], user_id: current_user.id)
+    current_user = User.find_by(email: params['uid'])
+    post = Post.new(title: params['post'][:title], body: params['post'][:body], user_id: current_user.id)
     if params["published"] == true
       post.published = true
     else
@@ -49,8 +49,8 @@ class PostsController < ApplicationController
 
   def update
     post = Post.find(params[:id])
-    title = params[:title]
-    body = params[:body]
+    title = params['post'][:title]
+    body = params['post'][:body]
     if params[:published] == true
       published = true
     else 
