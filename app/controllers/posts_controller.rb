@@ -42,7 +42,7 @@ class PostsController < ApplicationController
 
       user_id: u.id,
       name: u.name,
-      email: u.email,
+      uid: u.email,
     }
     render json: post_array, status: 200
   end

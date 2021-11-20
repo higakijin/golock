@@ -69,7 +69,7 @@ export default new Router({
     { path: '/', name: 'Posts', component: Posts },
     { path: '/posts/new', name: 'PostNew', component: PostNew, beforeEnter: requireAuth },
     { path: '/posts/:id', name: 'PostShow', component: PostShow },
-    { path: '/posts/:id/edit', name: 'PostEdit', component: PostEdit }
+    { path: '/posts/:id/edit', name: 'PostEdit', component: PostEdit, beforeEnter: requireAuth }
     
     // {
     //   path: '/article/:id',

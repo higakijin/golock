@@ -149,7 +149,8 @@ export default {
 
   created()　{
     this.RetunPostData()
-  }
+  },
+
 }
 </script>
 
