@@ -10,7 +10,7 @@
         </div>
         <div class="flex">
           <h1 class="text-4xl font-bold my-5">{{ post.title }}</h1>
-          <router-link :to='`/posts/${post.id}/edit`' class="m-10 ml-auto whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100">編集</router-link>
+          <router-link v-show='isCurrentUser' :to='`/posts/${post.id}/edit`' class="m-10 ml-auto whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100">編集</router-link>
         </div>
         <markdown-it-vue class="md-body" :content="content" />
       </div>
@@ -43,7 +43,8 @@ export default {
       createdAt: '',
       updatedAt: '',
 
-      content: ''
+      content: '',
+      isCurrentUser: '',
     }
   },
   methods: {
@@ -59,6 +60,11 @@ export default {
         this.content = res.data.body
       } catch (error) {
         // エラーメッセージ
+      }
+      if (this.post.uid === window.localStorage.getItem('uid')) {
+        this.isCurrentUser = true
+      } else {
+        this.isCurrentUser = false
       }
     },
   },
