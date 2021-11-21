@@ -84,14 +84,14 @@ export default {
       
       try {
         const res = await axios.post('http://localhost:3000/posts', {
-          headers: {
-            uid: window.localStorage.getItem('uid'),
-            "access-token": window.localStorage.getItem('access-token'),
-            client: window.localStorage.getItem('client')
+          
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            title: this.title,
+            body: this.body,
           },
-
-          title: this.title,
-          body: this.body,
           
           published: false
         })
@@ -113,15 +113,13 @@ export default {
       
       try {
         const res = await axios.post('http://localhost:3000/posts', {
-          headers: {
-            uid: window.localStorage.getItem('uid'),
-            "access-token": window.localStorage.getItem('access-token'),
-            client: window.localStorage.getItem('client')
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            title: this.title,
+            body: this.body,
           },
-
-          title: this.title,
-          body: this.body,
-          
           published: true
         })
         if (!res) {

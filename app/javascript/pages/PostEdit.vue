@@ -9,7 +9,7 @@
           <form @submit.prevent>
             <div class="flex items-center mb-1 justify-center">
               <div class="shadow-md mt-10 mb-6 px-3 pt-3 w-full">
-                <input type="text" v-model="post.title" required placeholder="タイトルを入力してください！" class="w-full my-3 appearance-none bg-transparent text-gray-700 mr-3 pb-2 leading-tight focus:outline-none border-green-500 border-b-2">
+                <input type="text" v-model="title" required placeholder="タイトルを入力してください！" class="w-full my-3 appearance-none bg-transparent text-gray-700 mr-3 pb-2 leading-tight focus:outline-none border-green-500 border-b-2">
               </div>
               <div class="flex mt-4">
                 <button type="submit" class="ml-4 m-2 whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100" @click="updatePostForPrivate">下書き保存</button>
@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="mb-12">
-              <mavon-editor :language="'ja'" :toolbars="mavonEditor.toolbars" v-model="post.body" required class="h-screen"></mavon-editor>
+              <mavon-editor :language="'ja'" :toolbars="mavonEditor.toolbars" v-model="body" required class="h-screen"></mavon-editor>
             </div>
           </form>
         </div>
@@ -37,6 +37,8 @@ export default {
   data () {
     return {
       post: '',
+      title: '',
+      body: '',
       error: null,
 
       mavonEditor: {
@@ -89,22 +91,28 @@ export default {
           new Error('メッセージを取得できませんでした。')
         }
         this.post = res.data
+        this.title = res.data.title
+        this.body = res.data.body
       } catch(error) {
-
+        
+      }
+      if (this.post.uid !== window.localStorage.getItem('uid')) {
+        this.$router.push({ name: 'Posts'})
       }
     },
 
     async updatePostForPrivate() {
       try {
         const res = await axios.patch(`http://localhost:3000/posts/${this.$route.params['id']}`, {
-          headers: {
-            uid: window.localStorage.getItem('uid'),
-            "access-token": window.localStorage.getItem('access-token'),
-            client: window.localStorage.getItem('client')
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            title: this.post.title,
+            body: this.post.body,
           },
-          title: this.post.title,
-          body: this.post.body,
-
+          title: this.title,
+          body: this.body,
           published: false
         })
         if (!res) {
@@ -123,14 +131,15 @@ export default {
     async updatePostForPublic() {
       try {
         const res = await axios.patch(`http://localhost:3000/posts/${this.$route.params['id']}`, {
-          headers: {
-            uid: window.localStorage.getItem('uid'),
-            "access-token": window.localStorage.getItem('access-token'),
-            client: window.localStorage.getItem('client')
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+          post: {
+            title: this.post.title,
+            body: this.post.body,
           },
-          title: this.post.title,
-          body: this.post.body,
-
+          title: this.title,
+          body: this.body,
           published: true
         })
         if (!res) {
