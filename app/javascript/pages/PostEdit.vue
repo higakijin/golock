@@ -108,11 +108,9 @@ export default {
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),
           post: {
-            title: this.post.title,
-            body: this.post.body,
+            title: this.title,
+            body: this.body,
           },
-          title: this.title,
-          body: this.body,
           published: false
         })
         if (!res) {
@@ -135,11 +133,9 @@ export default {
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),
           post: {
-            title: this.post.title,
-            body: this.post.body,
+            title: this.title,
+            body: this.body,
           },
-          title: this.title,
-          body: this.body,
           published: true
         })
         if (!res) {
