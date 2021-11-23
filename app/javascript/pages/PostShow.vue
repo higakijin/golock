@@ -4,7 +4,7 @@
     
     <div class="grid grid-cols-7 gap-4 mt-12 mb-28">
       <div class="col-span-1"></div>
-      <div class="col-span-5">
+      <div class="col-span-4">
         <div>
           <p>投稿日{{ createdAt }}　|　更新日{{ updatedAt }}　　Posted by {{ post.name }}</p>
         </div>
@@ -14,7 +14,7 @@
         </div>
         <markdown-it-vue class="md-body" :content="content" />
       </div>
-      <div class="col-span-1"></div>
+      <div class="col-span-2"></div>
     </div>
   </div>
 </template>
@@ -66,11 +66,15 @@ export default {
       } else {
         this.isCurrentUser = false
       }
+      if (!this.isCurrentUser && !this.post.published) {
+        this.$router.push({ name: 'Posts' })
+      }
     },
   },
   
   mounted() {
     this.getPostShow()
+
   },
 
 }

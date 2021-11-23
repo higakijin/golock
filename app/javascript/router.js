@@ -7,6 +7,7 @@ import Posts from '../javascript/pages/Posts.vue'
 import PostNew from '../javascript/pages/PostNew.vue'
 import PostShow from '../javascript/pages/PostShow.vue'
 import PostEdit from '../javascript/pages/PostEdit.vue'
+import PostUnpublished from '../javascript/pages/PostUnpublished.vue'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -68,8 +69,9 @@ export default new Router({
     { path: '/users/auth', name: 'UserAuth', component: UserAuth },
     { path: '/', name: 'Posts', component: Posts },
     { path: '/posts/new', name: 'PostNew', component: PostNew, beforeEnter: requireAuth },
+    { path: '/posts/unpublished', name: 'PostUnpublished', component: PostUnpublished, beforeEnter: requireAuth },
     { path: '/posts/:id', name: 'PostShow', component: PostShow },
-    { path: '/posts/:id/edit', name: 'PostEdit', component: PostEdit, beforeEnter: requireAuth }
+    { path: '/posts/:id/edit', name: 'PostEdit', component: PostEdit, beforeEnter: requireAuth },
     
     // {
     //   path: '/article/:id',

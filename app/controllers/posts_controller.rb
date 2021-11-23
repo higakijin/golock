@@ -37,6 +37,7 @@ class PostsController < ApplicationController
       id: p.id,
       title: p.title,
       body: p.body,
+      published: p.published,
       created_at: p.created_at,
       updated_at: p.updated_at,
 

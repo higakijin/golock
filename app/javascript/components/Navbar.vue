@@ -27,6 +27,12 @@
           >
             投稿する
           </router-link>
+          <router-link to="/posts/unpublished"
+            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            :class="this.$route.path==='/posts/unpublished' ? 'text-white' : '' "
+          >
+            下書き一覧
+          </router-link>
         </div>
 
         <div v-if="isCurrentUser">
@@ -43,7 +49,9 @@
       <div v-if="name" class="text-right">
         {{ name }} としてログイン中
       </div>
-      <div v-else> </div>
+      <div v-else class="text-right">
+        ログインしていません
+      </div>
     </div>
 
   </div>
