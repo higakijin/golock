@@ -74,20 +74,18 @@ export default {
   
   mounted() {
     this.getPostShow()
-
   },
 
 }
 </script>
 
 <style>
-/* マークダウンの記述はこちらの記入 */
-.markdown-body h1 {
-  font-size: 25px;
+.md-body h1 {
+  font-size: 24px;
   margin-top: 60px;
 }
 
-.markdown-body pre {
+.md-body pre {
   font-size: 12px
 }
 </style>
