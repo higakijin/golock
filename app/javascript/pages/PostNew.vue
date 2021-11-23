@@ -5,6 +5,7 @@
       <div class="col-span-1"></div>
       <div class="col-span-9">
         <div id="app">
+          <TagInput />
           <form @submit.prevent>
             <div class="flex items-center mb-1 justify-center">
               <div class="shadow-md mt-10 mb-6 px-3 pt-3 w-full">
@@ -30,9 +31,10 @@
 <script>
 import axios from 'axios'
 import Navbar from '../components/Navbar.vue'
+import TagInput from '../components/TagInput.vue'
 
 export default {
-  components: { Navbar },
+  components: { Navbar, TagInput },
   data () {
     return {
       title: '',
