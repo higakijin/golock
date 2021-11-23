@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update] # index消した
 
   def index
-    posts = Post.all.includes(:user)
+    posts = Post.all.includes(:user, :tags)
     posts_array = posts.map do |p|
       {
         id: p.id,
@@ -11,7 +11,13 @@ class PostsController < ApplicationController
         name: p.user.name,
         title: p.title,
         published: p.published,
-        created_at: p.created_at
+        created_at: p.created_at,
+        tags: p.tags.map do |t|
+          {
+            id: t.id,
+            name: t.name
+          }
+        end
       }
     end
     render json: posts_array, status: 200
@@ -26,6 +32,10 @@ class PostsController < ApplicationController
       post.published = false
     end
     post.save
+    params[:tags][:name].each do |tag|
+      Tag.create(name: tag) unless Tag.find_by(name: tag)
+      PostTag.create(post_id: post.id, tag_id: Tag.find_by(name: tag).id)
+    end
     render json: post
   end
   
@@ -43,6 +53,13 @@ class PostsController < ApplicationController
       user_id: u.id,
       name: u.name,
       uid: u.email,
+
+      tags: p.tags.map do |t| 
+        {
+          id: t.id,
+          name: t.name
+        } 
+      end
     }
     render json: post_array, status: 200
   end

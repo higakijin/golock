@@ -15,7 +15,14 @@
                     {{ post.title }}
                   </h2>
                 </router-link>
-                <p class="leading-relaxed">Rails, Ruby, HTML, JQuery</p>
+                <div class="flex">
+                  <div v-for="tag in post.tags" :key="tag.id" class="flex">
+                    <router-link to="#">
+                      {{ tag.name }}
+                    </router-link>
+                    <p v-if="tag.name !== post.tags.slice(-1)[0].name" class="mr-2">,</p>
+                  </div>
+                </div>
                 <router-link :to='`/posts/${post.id}`' class="text-green-500 inline-flex items-center mt-4 w-full">
                   Learn More
                   <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -40,7 +47,8 @@ export default {
   data() {
     return {
       posts: [],
-      date: this.$moment().format()
+      date: this.$moment().format(),
+      tags: [],      
     }
   },
   methods: {
@@ -55,7 +63,7 @@ export default {
       } catch (error) {
         // メッセージを取得できませんでした。
       }
-    }
+    },
   },
   mounted () {
     this.getPosts()

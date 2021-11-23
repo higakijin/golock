@@ -5,7 +5,9 @@
       <div class="col-span-1"></div>
       <div class="col-span-9">
         <div id="app">
-          <TagInput />
+          <section class="container">
+            <tag-input v-model="tag_str"/>
+          </section>
           <form @submit.prevent>
             <div class="flex items-center mb-1 justify-center">
               <div class="shadow-md mt-10 mb-6 px-3 pt-3 w-full">
@@ -40,6 +42,8 @@ export default {
       title: '',
       body: '',
       error: null,
+
+      tag_str: window.localStorage.getItem('name'),
 
       mavonEditor: {
         toolbars: {
@@ -84,6 +88,7 @@ export default {
     async createPostForPrivate() {
       this.error = null
       
+      const tag_array = this.tag_str.split(',')
       try {
         const res = await axios.post('http://localhost:3000/posts', {
           
@@ -93,6 +98,9 @@ export default {
           post: {
             title: this.title,
             body: this.body,
+          },
+          tags: {
+            name: tag_array
           },
           
           published: false
@@ -113,6 +121,7 @@ export default {
     async createPostForPublic() {
       this.error = null
       
+      const tag_array = this.tag_str.split(',')
       try {
         const res = await axios.post('http://localhost:3000/posts', {
           uid: window.localStorage.getItem('uid'),
@@ -121,6 +130,9 @@ export default {
           post: {
             title: this.title,
             body: this.body,
+          },
+          tags: {
+            name: tag_array
           },
           published: true
         })

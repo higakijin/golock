@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.text :body
       t.boolean :published, default: false
 
-      t.references :user
+      t.references :user, foreign_key: true
 
       t.timestamps
     end
