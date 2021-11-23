@@ -10,7 +10,6 @@ class PostsController < ApplicationController
         email: p.user.email,
         name: p.user.name,
         title: p.title,
-        body: p.body,
         published: p.published,
         created_at: p.created_at
       }
@@ -50,8 +49,14 @@ class PostsController < ApplicationController
 
   def update
     post = Post.find(params[:id])
-    title = params['post'][:title]
-    body = params['post'][:body]
+    if params['post'][:title] && params['post'][:body]
+      title = params['post'][:title]
+      body = params['post'][:body]
+    else
+      title = post.title
+      body = post.body
+    end
+
     if params[:published] == true
       published = true
     else 
