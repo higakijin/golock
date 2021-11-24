@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-container cf">
+  <div class="tag-container cf shadow-md border-t-2">
     <div v-for="(tag, index) in tags" 
       :key="index"
       class="tag-label">
@@ -45,7 +45,6 @@ export default {
   methods: {
 
     propToData() {
-      console.log("propToData")
       this.tags.length = 0
       this.value.split(/,/).forEach(val => this.tags.push(val))
     },
@@ -88,8 +87,7 @@ export default {
 
 .tag-container {
   padding: 5px 5px 0 5px;
-  border: 1px solid #ccc;
-  margin: 20px;
+  margin-bottom: 15px;
   font-size: 15px;
 }
 .tag-container .tag-label,
