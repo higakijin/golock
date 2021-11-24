@@ -41,7 +41,7 @@ export default {
       post: '',
       title: '',
       body: '',
-      tag_str: '',
+      tag_str: window.localStorage.getItem('name'),
       error: null,
 
       mavonEditor: {
@@ -105,7 +105,9 @@ export default {
             tag_str = tag_str + obj[i].name + ','
           }
         }
-        this.tag_str = tag_str
+        if (tag_str) {
+          this.tag_str = tag_str
+        }
       } catch(error) {
         
       }

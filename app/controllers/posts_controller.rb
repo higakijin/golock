@@ -79,6 +79,24 @@ class PostsController < ApplicationController
     else 
       published = false
     end
+    
+    if params[:tags][:name] #タグの追加
+      params[:tags][:name].each do |tag|
+        if t = Tag.find_by(name: tag)
+          PostTag.create(post_id: post.id, tag_id: t.id) unless PostTag.find_by(post_id: post.id, tag_id: t.id)
+        else
+          t = Tag.create(name: tag)
+          PostTag.create(post_id: post.id, tag_id: t.id)
+        end
+      end
+    end
+
+    post.tags.each do |t| #タグの削除
+      unless params[:tags][:name].include?(t[:name])
+        PostTag.find_by(post_id: post.id, tag_id: Tag.find_by(name: t[:name]).id).destroy
+      end
+    end
+
     post.update(title: title, body: body, published: published)
     render json: post
   end
