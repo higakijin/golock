@@ -2,7 +2,7 @@
   <section class="text-gray-600 body-font overflow-hidden">
     <div class="container px-5 py-12 mx-auto">
       <div class="-my-8 divide-y-2 divide-gray-100">
-        <div v-for='post in posts' :key="post.id">
+        <div v-for='post in sortedPostsByUpdated' :key="post.id">
           <div class="py-8 flex flex-wrap md:flex-nowrap">
             <div class='w-full'>
               <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -67,6 +67,13 @@ export default {
   },
   mounted () {
     this.getPosts()
+  },
+  computed: {
+    sortedPostsByUpdated() {
+      return this.posts.sort((a, b) => {
+        return (a.updated_at < b.updated_at) ? 1 : (a.updated_at > b.updated_at) ? -1 : 0;
+      })
+    }
   }
 
 }

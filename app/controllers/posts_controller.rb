@@ -12,6 +12,7 @@ class PostsController < ApplicationController
         title: p.title,
         published: p.published,
         created_at: p.created_at,
+        updated_at: p.updated_at,
         tags: p.tags.map do |t|
           {
             id: t.id,
