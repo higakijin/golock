@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="flex items-center">
-              <button @click="postForPublic(post.id)" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100 whitespace-nowrap">公開する</button>
+              <button @click="postForPublic(post.id, post.tags)" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100 whitespace-nowrap">公開する</button>
             </div>
           </div>
         </div>
@@ -50,7 +50,6 @@ export default {
     return {
       posts: [],
       date: this.$moment().format(),
-      // postForPublic: ''
     }
   },
   methods: {
@@ -67,12 +66,19 @@ export default {
         // メッセージを取得できませんでした。
       }
     },
-    async postForPublic(id) {
+    async postForPublic(id, tags) {
+      let tag_array = []
+      for (let i=0; i<=tags.length-1; i++) {
+        tag_array.push(tags[i].name)
+      }
       try {
         const res = await axios.patch(`http://localhost:3000/posts/${id}`, {
           uid: window.localStorage.getItem('uid'),
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),
+          tags: {
+            name: tag_array
+          },
           published: true
         })
         this.getPosts()
