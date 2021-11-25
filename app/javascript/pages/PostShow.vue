@@ -10,7 +10,10 @@
         </div>
         <div class="flex items-center my-3">
           <h1 class="text-4xl font-bold">{{ post.title }}</h1>
-          <router-link v-show='isCurrentUser' :to='`/posts/${post.id}/edit`' class="ml-auto whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100">編集</router-link>
+          <div class="ml-auto flex">
+            <router-link v-show='isCurrentUser' :to='`/posts/${post.id}/edit`' class="whitespace-nowrap px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100">編集</router-link>
+            <div v-show='isCurrentUser' @click='deletePost' class="whitespace-nowrap px-2 py-1 ml-3 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100 cursor-pointer">削除</div>
+          </div>
         </div>
         <markdown-it-vue class="md-body" :content="content" />
       </div>
@@ -68,6 +71,31 @@ export default {
       }
       if (!this.isCurrentUser && !this.post.published) {
         this.$router.push({ name: 'Posts' })
+      }
+    },
+
+    async deletePost () {
+      try {
+        const params = {
+          uid: window.localStorage.getItem('uid'),
+          "access-token": window.localStorage.getItem('access-token'),
+          client: window.localStorage.getItem('client'),
+        }
+        const res = await axios.delete(`http://localhost:3000/posts/${this.$route.params['id']}`, {
+          data: params,
+          id: this.post.id
+        }) 
+        if (!res) {
+          new Error('メッセージを取得できませんでした。')
+        }
+        if (!this.error) {
+          this.$router.push({ name: 'Posts' })
+        }
+        this.error = null
+
+        return res
+      } catch (error) {
+        console.log(error);
       }
     },
   },

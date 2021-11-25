@@ -9,10 +9,9 @@ Rails.application.routes.draw do
     scope :api do
       resources :posts, only: [:index, :show]
     end
-
   end
 
-  resources :posts, only: [:create, :update]
+  resources :posts, only: [:create, :update, :destroy]
   # Routerのmodeがhashの場合は不要です
   # get '/article/:id', to: 'pages#index'
   get '*path', to: 'pages#index'

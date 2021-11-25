@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update] # index消した
+  before_action :authenticate_user!, only: [:create, :update, :destroy] # index消した
 
   def index
     posts = Post.all.includes(:user, :tags)
@@ -50,11 +50,9 @@ class PostsController < ApplicationController
       published: p.published,
       created_at: p.created_at,
       updated_at: p.updated_at,
-
       user_id: u.id,
       name: u.name,
       uid: u.email,
-
       tags: p.tags.map do |t| 
         {
           id: t.id,
@@ -100,6 +98,11 @@ class PostsController < ApplicationController
 
     post.update(title: title, body: body, published: published)
     render json: post
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
   end
 
 end
