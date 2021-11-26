@@ -15,25 +15,16 @@
 
 <script>
 import axios from 'axios'
+
+let rank = 0
+
 export default {
   data() {
     return {
       tags: [],
-      pre_rank: 0
     }
   },
   methods: {
-    checkRank(pre, current, index) {
-      if(index+1===1) {
-        this.pre_rank = index+1
-        return index+1
-      } else if (pre.count === current.count) {
-        return this.pre_rank
-      } else {
-        this.pre_rank = index+1
-        return index+1
-      }
-    },
     async getTagData() {
       try {
         const res = await axios.get('http://localhost:3000/api/tags', {})
@@ -45,7 +36,17 @@ export default {
 
       }
     },
-    
+    checkRank(pre, current, index) {
+      if (index === 0) {
+        rank = index + 1
+        return rank
+      } else if (pre.count === current.count) {
+        return rank
+      } else {
+        rank = index + 1
+        return rank
+      }
+    },
   },
   mounted() {
     this.getTagData()
