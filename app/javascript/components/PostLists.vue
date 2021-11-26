@@ -47,8 +47,7 @@ export default {
   data() {
     return {
       posts: [],
-      date: this.$moment().format(),
-      tags: [],      
+      date: this.$moment().format(),     
     }
   },
   methods: {
@@ -58,12 +57,12 @@ export default {
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
-        // this.posts = res.data.reverse() // 降順に設定
         this.posts = res.data.filter((v) => v.published).reverse()
       } catch (error) {
         // メッセージを取得できませんでした。
       }
     },
+
   },
   mounted () {
     this.getPosts()
