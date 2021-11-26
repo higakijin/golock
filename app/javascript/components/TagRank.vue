@@ -1,11 +1,15 @@
 <template>
   <div class="mt-10">
     <h3 class="text-base font-medium text-center"><font-awesome-icon icon="crown" /> タグ・ランキング</h3>
-    <table class="mx-auto mt-2 w-11/12">
+    <table class="mx-auto mt-2 w-3/4">
       <tbody>
         <tr v-for='(tag, index) in sortedTagsByCount' :key='tag.id'>
           <th class="w-1/4 font-medium">{{ checkRank(tags[index-1], tag, index) }}位</th>
-          <th nowrap class="w-1/2 font-medium" style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;">{{ tag.name }}</th>
+          <th nowrap class="w-1/2 font-medium" style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;">
+            <router-link to="#" class="hover:underline">
+              {{ tag.name }}
+            </router-link>
+          </th>
           <th class="w-1/4 font-medium">{{ tag.count }}件</th>
         </tr>
       </tbody>

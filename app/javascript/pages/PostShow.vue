@@ -15,6 +15,17 @@
             <div v-show='isCurrentUser' @click='deletePost' class="whitespace-nowrap px-2 py-1 ml-3 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100 cursor-pointer">削除</div>
           </div>
         </div>
+        <div class="mb-5 flex">
+          <div class="px-1" v-if="post.tags.length > 0">
+            <font-awesome-icon icon="tags" />
+          </div>
+          <div v-for="tag in post.tags" :key="tag.id" class="flex">
+            <router-link to="#" class="hover:underline">
+              {{ tag.name }}
+            </router-link>
+            <p v-if="tag.name !== post.tags.slice(-1)[0].name" class="mr-2">,</p>
+          </div>
+        </div>
         <markdown-it-vue class="md-body" :content="content" />
       </div>
       <div class="col-span-2"></div>

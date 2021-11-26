@@ -16,11 +16,11 @@
                   </h2>
                 </router-link>
                 <div class="flex">
-                  <div class="px-1">
+                  <div class="px-1" v-if="post.tags.length > 0">
                     <font-awesome-icon icon="tags" />
                   </div>
                   <div v-for="tag in post.tags" :key="tag.id" class="flex">
-                    <router-link to="#">
+                    <router-link to="#" class="hover:underline">
                       {{ tag.name }}
                     </router-link>
                     <p v-if="tag.name !== post.tags.slice(-1)[0].name" class="mr-2">,</p>
