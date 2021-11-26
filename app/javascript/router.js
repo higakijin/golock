@@ -12,12 +12,21 @@ import PostUnpublished from '../javascript/pages/PostUnpublished.vue'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+
 import useValidate from '../javascript/auth/validate'
 
 Vue.use(Router)
 Vue.use(require('vue-moment'))
 
 Vue.use(mavonEditor)
+
+library.add(fas, far, fab)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 const { validate } = useValidate()
 const requireAuth = async (to, from, next) => {

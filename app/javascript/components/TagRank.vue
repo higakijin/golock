@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h2>タグ・ランキング</h2>
-    <table>
-      <tbody v-for='(tag, index) in sortedTagsByCount' :key='tag.id'>
-        <tr>
-          <th>{{ checkRank(tags[index-1], tag, index) }}位</th>
-          <th>{{ tag.name }}</th>
-          <th>{{ tag.count }}件</th>
+  <div class="mt-10">
+    <h3 class="text-base font-medium text-center"><font-awesome-icon icon="crown" /> タグ・ランキング</h3>
+    <table class="mx-auto mt-2 w-11/12">
+      <tbody>
+        <tr v-for='(tag, index) in sortedTagsByCount' :key='tag.id'>
+          <th class="w-1/4 font-medium">{{ checkRank(tags[index-1], tag, index) }}位</th>
+          <th nowrap class="w-1/2 font-medium" style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;">{{ tag.name }}</th>
+          <th class="w-1/4 font-medium">{{ tag.count }}件</th>
         </tr>
       </tbody>
     </table>
@@ -60,6 +60,7 @@ export default {
         })
         .reverse()
         .filter(tag=> tag.count >= 1 )
+        .slice(0,10)
     },
   },
 
