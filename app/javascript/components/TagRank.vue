@@ -19,19 +19,18 @@ export default {
   data() {
     return {
       tags: [],
+      pre_rank: 0
     }
   },
   methods: {
     checkRank(pre, current, index) {
-      let pre_rank = 0
       if(index+1===1) {
-        pre_rank = index+1
+        this.pre_rank = index+1
         return index+1
       } else if (pre.count === current.count) {
-        return pre_rank
-        // console.log('pre'+pre.count);
-        // console.log(current.count);
+        return this.pre_rank
       } else {
+        this.pre_rank = index+1
         return index+1
       }
     },
