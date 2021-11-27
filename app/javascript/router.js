@@ -8,6 +8,7 @@ import PostNew from '../javascript/pages/PostNew.vue'
 import PostShow from '../javascript/pages/PostShow.vue'
 import PostEdit from '../javascript/pages/PostEdit.vue'
 import PostUnpublished from '../javascript/pages/PostUnpublished.vue'
+import TagLists from '../javascript/pages/TagLists.vue'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -81,6 +82,7 @@ export default new Router({
     { path: '/posts/unpublished', name: 'PostUnpublished', component: PostUnpublished, beforeEnter: requireAuth },
     { path: '/posts/:id', name: 'PostShow', component: PostShow },
     { path: '/posts/:id/edit', name: 'PostEdit', component: PostEdit, beforeEnter: requireAuth },
+    { path: '/posts/tags/:tag_name', name: 'TagLists', component: TagLists }
     
     // {
     //   path: '/article/:id',

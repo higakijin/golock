@@ -6,7 +6,7 @@
         <tr v-for='(tag, index) in sortedTagsByCount' :key='tag.id'>
           <th class="w-1/4 font-medium">{{ checkRank(tags[index-1], tag, index) }}位</th>
           <th nowrap class="w-1/2 font-medium" style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;">
-            <router-link to="#" class="hover:underline">
+            <router-link :to='`/posts/tags/${tag.name}`' class="hover:underline">
               {{ tag.name }}
             </router-link>
           </th>
