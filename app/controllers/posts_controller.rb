@@ -32,12 +32,14 @@ class PostsController < ApplicationController
     else
       post.published = false
     end
-    post.save
-    params[:tags][:name].each do |tag|
-      Tag.create(name: tag) unless Tag.find_by(name: tag)
-      PostTag.create(post_id: post.id, tag_id: Tag.find_by(name: tag).id)
+
+    if post.save!
+      params[:tags][:name].each do |tag|
+        Tag.create(name: tag) unless Tag.find_by(name: tag)
+        PostTag.create(post_id: post.id, tag_id: Tag.find_by(name: tag).id)
+      end
+      render json: post
     end
-    render json: post
   end
   
   def show 
