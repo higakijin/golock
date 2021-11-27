@@ -2,7 +2,7 @@
   <section class="text-gray-600 body-font overflow-hidden">
     <div class="container px-5 py-12 mx-auto">
       <div class="-my-8 divide-y-2 divide-gray-100">
-        <div v-for='post in sortedPostsByUpdated' :key="post.id">
+        <div v-for='(post, postIndex) in sortedPostsByUpdated' :key='`post-${postIndex}`'>
           <div class="py-8 flex flex-wrap md:flex-nowrap">
             <div class='w-full'>
               <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -34,7 +34,6 @@
                   </svg>
                 </router-link>
               </div>
-
             </div>
           </div>
         </div>
@@ -44,39 +43,31 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
+  props: ["posts"],
   data() {
     return {
-      posts: [],
       date: this.$moment().format(),     
     }
   },
-  methods: {
-    async getPosts () {
-      try {
-        const res = await axios.get('http://localhost:3000/api/posts', {})
-        if (!res) {
-          new Error('メッセージを取得できませんでした。')
-        }
-        this.posts = res.data.filter((v) => v.published).reverse()
-      } catch (error) {
-        // メッセージを取得できませんでした。
-      }
-    },
+  mounted() {
+    this.$emit('getPosts')
+  },
 
-  },
-  mounted () {
-    this.getPosts()
-  },
   computed: {
     sortedPostsByUpdated() {
       return this.posts.sort((a, b) => {
         return (a.updated_at < b.updated_at) ? 1 : (a.updated_at > b.updated_at) ? -1 : 0;
       })
+    },
+  },
+
+  watch: {
+    $route(to, from) {
+      this.$emit('resetPosts')
+      this.$emit('re_tag_name', this.$route.params.tag_name)
+      this.$emit('getPosts')
     }
   }
-
 }
 </script>
