@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="mb-5 flex">
-          <div class="px-1" v-if="post.tags.length > 0">
+          <div class="px-1" v-if="tag_count">
             <font-awesome-icon icon="tags" />
           </div>
           <div v-for="tag in post.tags" :key="tag.id" class="flex">
@@ -59,6 +59,8 @@ export default {
 
       content: '',
       isCurrentUser: '',
+
+      tag_count: false
     }
   },
   methods: {
@@ -72,6 +74,10 @@ export default {
         this.createdAt = format(new Date(this.post.created_at), 'yyyy年MM月dd日')
         this.updatedAt = format(new Date(this.post.updated_at), 'yyyy年MM月dd日')
         this.content = res.data.body
+
+        if (this.post.tags.length > 0) {
+          this.tag_count = true
+        }
       } catch (error) {
         // エラーメッセージ
       }
