@@ -5,8 +5,10 @@
     <div class="grid grid-cols-7 gap-4 mt-12 mb-28">
       <div class="col-span-1"></div>
       <div class="col-span-4">
-        <div>
-          <p>投稿日{{ createdAt }}　|　更新日{{ updatedAt }}　　Posted by {{ post.name }}</p>
+        <div class="text-gray-500 flex gap-x-7">
+          <p>{{ createdAt }}に投稿</p>
+          <p>{{ updatedAt }}に更新</p>
+          <p>Posted by {{ post.name }}</p>
         </div>
         <div class="flex items-center my-3">
           <h1 class="text-4xl font-bold">{{ post.title }}</h1>
@@ -15,7 +17,7 @@
             <div v-show='isCurrentUser' @click='deletePost' class="whitespace-nowrap px-2 py-1 ml-3 text-red-500 border border-red-500 font-semibold rounded hover:bg-red-100 cursor-pointer">削除</div>
           </div>
         </div>
-        <div class="mb-5 flex">
+        <div class="mb-5 flex text-gray-600">
           <div class="px-1" v-if="tag_count">
             <font-awesome-icon icon="tags" />
           </div>
