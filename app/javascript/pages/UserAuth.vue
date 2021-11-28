@@ -92,7 +92,7 @@ export default {
     async login() {
       this.error = null
       try {
-        const res = await axios.post('http://localhost:3000/auth/sign_in', {
+        const res = await axios.post('/auth/sign_in', {
           email: this.loginEmail,
           password: this.loginPassword
         })
@@ -115,7 +115,7 @@ export default {
     async signUp() {
       this.error = null
       try {
-        const res = await axios.post('http://localhost:3000/auth', {
+        const res = await axios.post('/auth', {
           name: this.signupName,
           email: this.signupEmail,
           password: this.signupPassword,

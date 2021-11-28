@@ -58,7 +58,7 @@ export default {
   methods: {
     async getPosts () {
       try {
-        const res = await axios.get('http://localhost:3000/api/posts', {})
+        const res = await axios.get('/api/posts', {})
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
@@ -75,7 +75,7 @@ export default {
         tag_array.push(tags[i].name)
       }
       try {
-        const res = await axios.patch(`http://localhost:3000/posts/${id}`, {
+        const res = await axios.patch(`/posts/${id}`, {
           uid: window.localStorage.getItem('uid'),
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),

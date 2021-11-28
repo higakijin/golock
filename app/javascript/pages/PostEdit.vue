@@ -89,7 +89,7 @@ export default {
       this.error = null
 
       try {
-        const res = await axios.get(`http://localhost:3000/api/posts/${this.$route.params['id']}`)
+        const res = await axios.get(`/api/posts/${this.$route.params['id']}`)
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
@@ -120,7 +120,7 @@ export default {
       this.error = null
       const tag_array = this.tag_str.split(',')
       try {
-        const res = await axios.patch(`http://localhost:3000/posts/${this.$route.params['id']}`, {
+        const res = await axios.patch(`/posts/${this.$route.params['id']}`, {
           uid: window.localStorage.getItem('uid'),
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),
@@ -150,7 +150,7 @@ export default {
       this.error = null
       const tag_array = this.tag_str.split(',')
       try {
-        const res = await axios.patch(`http://localhost:3000/posts/${this.$route.params['id']}`, {
+        const res = await axios.patch(`/posts/${this.$route.params['id']}`, {
           uid: window.localStorage.getItem('uid'),
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),

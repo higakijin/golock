@@ -33,7 +33,7 @@ export default {
   methods: {
     async getPosts () {
       try {
-        const res = await axios.get('http://localhost:3000/api/posts', {})
+        const res = await axios.get('/api/posts', {})
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }

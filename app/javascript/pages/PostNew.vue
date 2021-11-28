@@ -88,7 +88,7 @@ export default {
       
       const tag_array = this.tag_str.split(',')
       try {
-        const res = await axios.post('http://localhost:3000/posts', {
+        const res = await axios.post('/posts', {
           
           uid: window.localStorage.getItem('uid'),
           "access-token": window.localStorage.getItem('access-token'),
@@ -121,7 +121,7 @@ export default {
       
       const tag_array = this.tag_str.split(',')
       try {
-        const res = await axios.post('http://localhost:3000/posts', {
+        const res = await axios.post('/posts', {
           uid: window.localStorage.getItem('uid'),
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),

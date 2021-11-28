@@ -12,6 +12,7 @@ import TagLists from '../javascript/pages/TagLists.vue'
 
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+// import axios from 'axios'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -45,6 +46,8 @@ const requireAuth = async (to, from, next) => {
 
   next()
 }
+
+// axios.defaults.baseURL = 'http://localhost:3000'
 
 export default new Router({
   

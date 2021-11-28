@@ -31,7 +31,7 @@ export default {
   methods: {
     async getTagData() {
       try {
-        const res = await axios.get('http://localhost:3000/api/tags', {})
+        const res = await axios.get('/api/tags', {})
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }

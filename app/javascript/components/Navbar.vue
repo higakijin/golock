@@ -77,7 +77,7 @@ export default {
     async logout () {
       this.error = null
       try {
-        const res = await axios.delete('http://localhost:3000/auth/sign_out', {
+        const res = await axios.delete('/auth/sign_out', {
           headers: {
             uid: window.localStorage.getItem('uid'),
             "access-token": window.localStorage.getItem('access-token'),

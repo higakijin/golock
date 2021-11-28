@@ -68,7 +68,7 @@ export default {
   methods: {
     async getPostShow () {
       try {
-        const res = await axios.get(`http://localhost:3000/api/posts/${this.$route.params['id']}`)
+        const res = await axios.get(`/api/posts/${this.$route.params['id']}`)
         if (!res) {
           new Error('メッセージを取得できませんでした。')
         }
@@ -100,7 +100,7 @@ export default {
           "access-token": window.localStorage.getItem('access-token'),
           client: window.localStorage.getItem('client'),
         }
-        const res = await axios.delete(`http://localhost:3000/posts/${this.$route.params['id']}`, {
+        const res = await axios.delete(`/posts/${this.$route.params['id']}`, {
           data: params,
           id: this.post.id
         }) 
