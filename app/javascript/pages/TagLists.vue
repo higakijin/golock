@@ -39,13 +39,13 @@ export default {
         }
         res.data
           .filter(v => {
-            v.tags.forEach(key => {
-              if(key.name.indexOf(this.tag_name)!== -1) {
-                if (key.name === this.tag_name) {
-                  this.posts.filter((u) => u.published).push(v)
+            if (v.published) {
+              v.tags.forEach(key => {
+                if(key.name.indexOf(this.tag_name)!== -1 || key.name === this.tag_name) {
+                  this.posts.push(v)
                 }
-              }
-            })
+              })
+            }
           })
           
       } catch (error) {
