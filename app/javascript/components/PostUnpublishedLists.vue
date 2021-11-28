@@ -19,7 +19,7 @@
                   <div class="px-1" v-if="post.tags.length > 0">
                     <font-awesome-icon icon="tags" />
                   </div>
-                  <div v-for="tag in post.tags" :key="tag.id" class="flex">
+                  <div v-for="tag in post.tags" :key="tag.id" class="flex hover:underline">
                     <router-link :to='`/posts/tags/${tag.name}`'>
                       {{ tag.name }}
                     </router-link>
