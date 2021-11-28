@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     scope :api do
       resources :posts, only: [:index, :show]
       resources :tags, only: [:index]
+      resources :users, only: [:index, :show]
     end
   end
 
